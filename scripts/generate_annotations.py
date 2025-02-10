@@ -38,23 +38,32 @@ def save_annotation(image_filename, label):
 
 def annotate_image(image_path):
     global current_image
+
     current_image = os.path.basename(image_path)
-    
+
+    # Automatically use the filename (without .png) as the label
+    label = current_image.replace(".png", "")
+
     image = cv2.imread(image_path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    
-    fig, ax = plt.subplots(1)
-    ax.imshow(image)
-    
-    toggle_selector.RS = RectangleSelector(
-        ax, line_select_callback,
-        useblit=True, button=[1],
-        minspanx=5, minspany=5,
-        spancoords='pixels', interactive=True
-    )
-    
-    plt.connect('key_press_event', onkeypress)
-    plt.show()
+    height, width, _ = image.shape  # Get image dimensions
+
+    annotation = {
+        "imagefilename": current_image,
+        "annotations": [
+            {
+                "label": label,
+                "coordinates": {
+                    "x": width // 2,
+                    "y": height // 2,
+                    "width": width,
+                    "height": height
+                }
+            }
+        ]
+    }
+
+    annotations.append(annotation)
+    print(f"✅ Auto-labeled {current_image} as '{label}' with full image bounding box.")
 
 def onkeypress(event):
     if event.key == 'q':  # Press 'q' to confirm bounding box
