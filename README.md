@@ -50,9 +50,3 @@ python3 scripts/generate_annotations.py
 - Drag the exported `.mlmodel` into your **Xcode** project.
 - Integrate it into your SwiftUI app for real-time object detection.
 
-## 🔥 Next Steps
-- Improve model accuracy by adding more training data.
-- Optimize object detection for real-time performance in iOS.
-- Experiment with different model configurations in Create ML.
-
-✅ **Your dataset is ready! Start training your CoreML model now!** 🚀
